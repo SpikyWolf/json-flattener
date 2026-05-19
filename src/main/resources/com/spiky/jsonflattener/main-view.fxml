@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--suppress ALL -->
+
+<SplitPane dividerPositions="0.1614420062695925" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.spiky.jsonflattener.MainViewController">
+  <items>
+    <AnchorPane fx:id="menuAnchorPane" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="100.0" style="-fx-background-color: #eeeeff;">
+         <children>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button fx:id="menuReadMe" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#onMenuReadMeClick" prefHeight="40.0" style="-fx-alignment: center-left; -fx-background-color: #eeeeff;" text="Read Me" underline="true" VBox.vgrow="NEVER">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="menuFolderSettings" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#onMenuFolderSettingsClick" prefHeight="40.0" style="-fx-alignment: center-left; -fx-background-color: #eeeeff;" text="Folder settings" underline="true" VBox.vgrow="NEVER">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="menuSummary" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" mouseTransparent="true" prefHeight="40.0" style="-fx-alignment: center-left; -fx-background-color: #eeeeff;" text="Summary" VBox.vgrow="NEVER">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor></Button>
+                  <Button fx:id="menuResults" layoutX="10.0" layoutY="84.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" mouseTransparent="true" prefHeight="40.0" style="-fx-alignment: center-left; -fx-background-color: #eeeeff;" text="Results">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Button>
+                  <Region VBox.vgrow="ALWAYS" />
+                  <Button fx:id="menuAutoRun" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onMenuAutoRunClick" style="-fx-background-color: #99ff99;" text="Auto-run" VBox.vgrow="NEVER">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets left="3.0" right="3.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="menuCancel" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onMenuCancelClick" style="-fx-background-color: #ff99aa;" text="CANCEL" underline="true" VBox.vgrow="NEVER">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="3.0" right="3.0" top="5.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+         </children></AnchorPane>
+    <AnchorPane fx:id="contentAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" style="-fx-background-color: #fdfdfd;">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <StackPane fx:id="contentStackPane" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="contentReadMe" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="This utility will non-destructive flatten json files into text files and provide them in an output folder while preserving the original folder structure.&#10;&#10;For convenience this utility has been designed to automatically populate the folder selection fields with the folders this program was run from.&#10;&#10;You have the option to click the &quot;auto-run&quot; button for a one-click process. It is highly recommended you manually process a folder first to learn how the utility works.&#10;When using the one-click process please make sure this utility was run from within the intended source folder." visible="false" wrapText="true">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
+                        <VBox fx:id="contentDirectoryVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" visible="false">
+                           <children>
+                              <Label fx:id="contentDirectoryLabel" maxWidth="1.7976931348623157E308" text="Please select the source and destination folders either by browsing to them with the browse button, or by manually providing the path you wish to select.&#10;&#10;If you do not provide a destination one will be created for you.&#10;" wrapText="true">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </VBox.margin></Label>
+                              <Label fx:id="contentSourceDirectoryLabel" maxWidth="1.7976931348623157E308" text="Source folder selection:">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin></Label>
+                              <HBox fx:id="contentSourceDirectoryHBox" maxWidth="1.7976931348623157E308">
+                                 <children>
+                                    <TextField fx:id="contentSourceDirectoryPath" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="contentSourceDirectoryBrowse" mnemonicParsing="false" onAction="#onContentSourceDirectoryBrowseClick" text="Browse...">
+                                       <graphic>
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@folder-icon.png" />
+                                             </image></ImageView>
+                                       </graphic>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                                       </padding>
+                                    </Button>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Label fx:id="contentDestinationDirectoryLabel" layoutX="10.0" layoutY="27.0" maxWidth="1.7976931348623157E308" text="Destination folder selection:">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin></Label>
+                              <HBox fx:id="contentDestinationDirectoryHBox" layoutX="10.0" layoutY="27.0" maxWidth="1.7976931348623157E308">
+                                 <children>
+                                    <TextField fx:id="contentDestinationDirectoryPath" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="contentDestinationDirectoryBrowse" mnemonicParsing="false" onAction="#onContentDestinationDirectoryBrowseClick" text="Browse...">
+                                       <graphic>
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@folder-icon.png" />
+                                             </image></ImageView>
+                                       </graphic>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                                       </padding>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <Region VBox.vgrow="ALWAYS" />
+                           </children>
+                           <padding>
+                              <Insets left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                        <Label fx:id="contentSummary" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="contentResults" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </Label>
+                     </children></StackPane>
+                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="2.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Button fx:id="contentBack" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onContentBackClick" style="-fx-background-color: #ff99aa;" text="Back" HBox.hgrow="ALWAYS">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <Button fx:id="contentNext" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onContentNextClick" style="-fx-alignment: center; -fx-background-color: #99ff99;" text="Next" HBox.hgrow="ALWAYS">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="2.0" right="2.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children></AnchorPane>
+  </items>
+</SplitPane>
