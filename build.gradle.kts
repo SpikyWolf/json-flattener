@@ -1,9 +1,6 @@
 plugins {
     java
     application
-    id("org.javamodularity.moduleplugin") version "1.8.15"
-    id("org.openjfx.javafxplugin") version "0.0.13"
-    id("org.beryx.jlink") version "2.25.0"
     id("org.graalvm.buildtools.native") version "1.1.0"
 }
 
@@ -27,16 +24,23 @@ tasks.withType<JavaCompile> {
 }
 
 application {
-    mainModule.set("com.spiky.jsonflattener")
     mainClass.set("com.spiky.jsonflattener.Launcher")
 }
 
-javafx {
-    version = "22.0.1"
-    modules = listOf("javafx.controls", "javafx.fxml")
+val jfxVersion = "25.0.3"
+val osName = System.getProperty("os.name").lowercase()
+val javaFxPlatform = when {
+    osName.contains("win") -> "win"
+    osName.contains("mac") -> "mac"
+        else -> "linux"
 }
 
+
 dependencies {
+    implementation("org.openjfx:javafx-base:$jfxVersion:$javaFxPlatform")
+    implementation("org.openjfx:javafx-controls:$jfxVersion:$javaFxPlatform")
+    implementation("org.openjfx:javafx-graphics:$jfxVersion:$javaFxPlatform")
+    implementation("org.openjfx:javafx-fxml:$jfxVersion:$javaFxPlatform")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     compileOnly("org.jetbrains:annotations:26.1.0")
@@ -46,11 +50,8 @@ dependencies {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
-jlink {
-    imageZip.set(layout.buildDirectory.file("/distributions/app-${javafx.platform.classifier}.zip"))
-    options.set(listOf("--strip-debug", "--compress", "2", "--no-header-files", "--no-man-pages"))
-    launcher {
-        name = "app"
+graalvmNative {
+    binaries.all {
+        buildArgs.add("--enable-native-access=ALL-UNNAMED")
     }
 }
