@@ -1,6 +1,6 @@
 package com.spiky.jsonflattener;
 
-import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -18,41 +18,73 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 
 public class MainViewController {
-    @FXML
-    private Button menuReadMe;
-    @FXML
-    private Button menuFolderSettings;
-    @FXML
-    private Button menuSummary;
-    @FXML
-    private Button menuResults;
-    @FXML
-    private Label contentReadMe;
-    @FXML
-    private VBox contentDirectoryVBox;
-    @FXML
-    private TextField contentSourceDirectoryPath;
-    @FXML
-    private TextField contentDestinationDirectoryPath;
-    @FXML
-    private Label contentSummary;
-    @FXML
-    private Label contentResults;
-    @FXML
-    private Button contentBack;
-    @FXML
-    private Button contentNext;
+    private final Button menuReadMe;
+    private final Button menuFolderSettings;
+    private final Button menuSummary;
+    private final Button menuResults;
+    private final Button contentBack;
+    private final Button contentNext;
+    private final Label contentReadMe;
+    private final Label contentSummary;
+    private final Label contentResults;
+    private final VBox contentDirectoryVBox;
+    private final TextField contentSourceDirectoryPath;
+    private final TextField contentDestinationDirectoryPath;
 
-    public void setModel(JsonFlattenerModel model) {
+    private final JsonFlattenerModel model;
+
+    public MainViewController (Parent root, JsonFlattenerModel model){
         this.model = model;
+
+        this.menuReadMe = (Button) root.lookup("#menuReadMe");
+        this.menuFolderSettings = (Button) root.lookup("#menuFolderSettings");
+        this.menuSummary = (Button) root.lookup("#menuSummary");
+        this.menuResults = (Button) root.lookup("#menuResults");
+        this.contentBack = (Button) root.lookup("#contentBack");
+        this.contentNext = (Button) root.lookup("#contentNext");
+
+        Button contentSourceDirectoryBrowse = (Button) root.lookup("#contentSourceDirectoryBrowse");
+        Button contentDestinationDirectoryBrowse = (Button) root.lookup("#contentDestinationDirectoryBrowse");
+        Button menuAutoRun = (Button) root.lookup("#menuAutoRun");
+        Button menuCancel = (Button) root.lookup("#menuCancel");
+
+        this.contentReadMe = (Label) root.lookup("#contentReadMe");
+        this.contentSummary = (Label) root.lookup("#contentSummary");
+        this.contentResults = (Label) root.lookup("#contentResults");
+
+        this.contentDirectoryVBox = (VBox) root.lookup("#contentDirectoryVBox");
+
+        this.contentSourceDirectoryPath = (TextField) root.lookup("#contentSourceDirectoryPath");
+        this.contentDestinationDirectoryPath = (TextField) root.lookup("#contentDestinationDirectoryPath");
+
+        this.menuReadMe.setOnAction(e -> onMenuReadMeClick());
+        this.menuFolderSettings.setOnAction(e -> onMenuFolderSettingsClick());
+        this.contentBack.setOnAction(e -> onContentBackClick());
+        this.contentNext.setOnAction(e -> {
+            try {
+                onContentNextClick();
+            } catch (IOException ex) {
+                showError(String.valueOf(ex.getCause()), ex.getMessage());
+            }
+        });
+        contentSourceDirectoryBrowse.setOnAction(e -> onContentSourceDirectoryBrowseClick());
+        contentDestinationDirectoryBrowse.setOnAction(e -> onContentDestinationDirectoryBrowseClick());
+        menuAutoRun.setOnAction(e -> {
+            try {
+                onMenuAutoRunClick();
+            } catch (IOException ex) {
+                showError(String.valueOf(ex.getCause()), ex.getMessage());
+            }
+        });
+        menuCancel.setOnAction(e -> onMenuCancelClick());
+
         contentSourceDirectoryPath.setText(model.sourceDirectory);
         contentDestinationDirectoryPath.setText(model.destinationDirectory);
 
+        this.initialiseFXML();
     }
 
-    private JsonFlattenerModel model;
-
-    public void initialize(){
+    public void initialiseFXML(){
         menuReadMe.setDisable(false);
         menuFolderSettings.setDisable(true);
         menuSummary.setDisable(true);
@@ -170,18 +202,15 @@ public class MainViewController {
         }
     }
 
-    @FXML
     protected void onMenuReadMeClick(){
         showPage(Page.READ_ME);
     }
 
-    @FXML
     protected void onMenuFolderSettingsClick(){
         showPage(Page.DIRECTORY);
     }
 
-    @FXML
-    protected  void onContentBackClick(){
+    protected void onContentBackClick(){
         switch (currentPage){
             case DIRECTORY -> showPage(Page.READ_ME);
             case SUMMARY -> showPage(Page.DIRECTORY);
@@ -189,31 +218,6 @@ public class MainViewController {
         }
     }
 
-    @FXML
-    protected void onContentSourceDirectoryBrowseClick(){
-        DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setInitialDirectory(new File(model.sourceDirectory));
-        chooser.setTitle("Please select the source folder.");
-        Stage stage = (Stage) contentSourceDirectoryPath.getScene().getWindow();
-        File selectedDirectory = chooser.showDialog(stage);
-        if (selectedDirectory != null){
-            contentSourceDirectoryPath.setText(selectedDirectory.getAbsolutePath());
-        }
-    }
-
-    @FXML
-    protected void onContentDestinationDirectoryBrowseClick(){
-        DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setInitialDirectory(new File(model.sourceDirectory));
-        chooser.setTitle("Please select the destination folder.");
-        Stage stage = (Stage) contentDestinationDirectoryPath.getScene().getWindow();
-        File selectedDirectory = chooser.showDialog(stage);
-        if (selectedDirectory != null){
-            contentDestinationDirectoryPath.setText(selectedDirectory.getAbsolutePath());
-        }
-    }
-
-    @FXML
     protected void onContentNextClick() throws IOException {
         switch (currentPage) {
             case READ_ME -> showPage(Page.DIRECTORY);
@@ -261,14 +265,35 @@ public class MainViewController {
         }
     }
 
-    @FXML
+    protected void onContentSourceDirectoryBrowseClick(){
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setInitialDirectory(new File(model.sourceDirectory));
+        chooser.setTitle("Please select the source folder.");
+        Stage stage = (Stage) contentSourceDirectoryPath.getScene().getWindow();
+        File selectedDirectory = chooser.showDialog(stage);
+        if (selectedDirectory != null){
+            contentSourceDirectoryPath.setText(selectedDirectory.getAbsolutePath());
+            contentDestinationDirectoryPath.setText("");
+        }
+    }
+
+    protected void onContentDestinationDirectoryBrowseClick(){
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setInitialDirectory(new File(model.sourceDirectory));
+        chooser.setTitle("Please select the destination folder.");
+        Stage stage = (Stage) contentDestinationDirectoryPath.getScene().getWindow();
+        File selectedDirectory = chooser.showDialog(stage);
+        if (selectedDirectory != null){
+            contentDestinationDirectoryPath.setText(selectedDirectory.getAbsolutePath());
+        }
+    }
+
     protected void onMenuAutoRunClick() throws IOException{
         model.fileScan();
         model.fileFlatten();
         showPage(Page.RESULTS);
     }
 
-    @FXML
     protected void onMenuCancelClick(){
         System.exit(0);
     }
