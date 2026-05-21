@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,6 +24,7 @@ public class JsonFlattenerApplication extends Application {
         new MainViewController(root, model);
 
         stage.setTitle("JSON Flattener");
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/spiky/jsonflattener/icon.png"))));
         stage.setMinWidth(640);
         stage.setMinHeight(360);
         stage.setScene(scene);
