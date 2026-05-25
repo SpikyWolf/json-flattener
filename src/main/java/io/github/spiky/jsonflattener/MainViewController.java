@@ -57,26 +57,26 @@ public class MainViewController {
         this.contentSourceDirectoryPath = (TextField) root.lookup("#contentSourceDirectoryPath");
         this.contentDestinationDirectoryPath = (TextField) root.lookup("#contentDestinationDirectoryPath");
 
-        this.menuReadMe.setOnAction(e -> onMenuReadMeClick());
-        this.menuFolderSettings.setOnAction(e -> onMenuFolderSettingsClick());
-        this.contentBack.setOnAction(e -> onContentBackClick());
-        this.contentNext.setOnAction(e -> {
+        this.menuReadMe.setOnAction(_ -> onMenuReadMeClick());
+        this.menuFolderSettings.setOnAction(_ -> onMenuFolderSettingsClick());
+        this.contentBack.setOnAction(_ -> onContentBackClick());
+        this.contentNext.setOnAction(_ -> {
             try {
                 onContentNextClick();
             } catch (IOException ex) {
                 showError(String.valueOf(ex.getCause()), ex.getMessage());
             }
         });
-        contentSourceDirectoryBrowse.setOnAction(e -> onContentSourceDirectoryBrowseClick());
-        contentDestinationDirectoryBrowse.setOnAction(e -> onContentDestinationDirectoryBrowseClick());
-        menuAutoRun.setOnAction(e -> {
+        contentSourceDirectoryBrowse.setOnAction(_ -> onContentSourceDirectoryBrowseClick());
+        contentDestinationDirectoryBrowse.setOnAction(_ -> onContentDestinationDirectoryBrowseClick());
+        menuAutoRun.setOnAction(_ -> {
             try {
                 onMenuAutoRunClick();
             } catch (IOException ex) {
                 showError(String.valueOf(ex.getCause()), ex.getMessage());
             }
         });
-        menuCancel.setOnAction(e -> onMenuCancelClick());
+        menuCancel.setOnAction(_ -> onMenuCancelClick());
 
         contentSourceDirectoryPath.setText(model.sourceDirectory);
         contentDestinationDirectoryPath.setText(model.destinationDirectory);
