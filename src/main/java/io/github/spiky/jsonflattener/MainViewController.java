@@ -1,4 +1,4 @@
-package com.spiky.jsonflattener;
+package io.github.spiky.jsonflattener;
 
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;

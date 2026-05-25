@@ -1,4 +1,4 @@
-package com.spiky.jsonflattener;
+package io.github.spiky.jsonflattener;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +24,7 @@ public class JsonFlattenerApplication extends Application {
         new MainViewController(root, model);
 
         stage.setTitle("JSON Flattener");
-        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/spiky/jsonflattener/icon.png"))));
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/io/github/spiky/jsonflattener/icon.png"))));
         stage.setMinWidth(640);
         stage.setMinHeight(360);
         stage.setScene(scene);

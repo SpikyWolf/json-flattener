@@ -4,8 +4,8 @@ plugins {
     id("com.gluonhq.gluonfx-gradle-plugin") version "1.0.28"
 }
 
-group = "com.spiky"
-version = "1.0-SNAPSHOT"
+group = "io.github.spiky"
+version = "0.1.0"
 
 repositories { mavenCentral() }
 
@@ -13,7 +13,7 @@ java { toolchain { languageVersion = JavaLanguageVersion.of(23) } }
 
 tasks.withType<JavaCompile> { options.encoding = "UTF-8" }
 
-application { mainClass.set("com.spiky.jsonflattener.Launcher") }
+application { mainClass.set("io.github.spiky.jsonflattener.Launcher") }
 
 val junitVersion = "5.12.1"
 
@@ -40,7 +40,7 @@ tasks.withType<Test> { useJUnitPlatform() }
 
 gluonfx {
     reflectionList = listOf(
-        "com.spiky.jsonflattener.JsonFlattenerApplication",
+        "io.github.spiky.jsonflattener.JsonFlattenerApplication",
         "javafx.scene.control.SplitPane",
         "javafx.scene.layout.AnchorPane",
         "javafx.scene.layout.VBox",

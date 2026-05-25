@@ -1,4 +1,4 @@
-package com.spiky.jsonflattener;
+package io.github.spiky.jsonflattener;
 
 import javafx.application.Application;
 

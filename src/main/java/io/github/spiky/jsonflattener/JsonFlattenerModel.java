@@ -1,4 +1,4 @@
-package com.spiky.jsonflattener;
+package io.github.spiky.jsonflattener;
 
 import tools.jackson.core.StreamReadFeature;
 import tools.jackson.databind.JsonNode;
